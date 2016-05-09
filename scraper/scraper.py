@@ -26,15 +26,18 @@ def main():
 def get_submissions(soup):
     submissions = []
 
-    page_result = soup.select('.itemlist')
+    page_results = soup.select('.itemlist .athing')
 
-    #with open("Output.txt", "w") as text_file:
-    #    print("Page Result: {}".format(page_result), file=text_file)
+    with open("Output.txt", "w") as text_file:
+        print("Page Result: {}".format(page_results), file=text_file)
 
-    for result in page_result:
+    for result in page_results:
+        entrynumber = result.select('.title')[0].text.strip()
         title = result.select('.title a')[0].text.strip()
+
         submissions.append({
-            'title': title
+            'id': entrynumber,
+            'title': title,
         })
 
     return submissions
